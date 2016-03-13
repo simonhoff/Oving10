@@ -9,11 +9,9 @@
  *****************************************************/
 
 Image::Image( unsigned int width, unsigned int height ) {
-   data = new unsigned char**[height];
+   data = new unsigned char*[height];
    for (int row = 0; row < height; row++ ){
-   		*(data + row) = new unsigned char*[width];
-   		for (int col = 0; col < width; col++){
-   			*(*(data + row) + col) = new unsigned char[3];
+   		*(data + row) = new unsigned char[width * 3];
    		}
    	}
    	this->height = height;
@@ -22,9 +20,6 @@ Image::Image( unsigned int width, unsigned int height ) {
 
 Image::~Image()  {
    	for (int row = 0; row < height; row++ ){
-   		for (int col = 0; col < width; col++ ){
-   			delete[] *(*(data + row) + col);
-   		}
    		delete[] *(data + row);
    	}
    	delete[] data;
@@ -40,21 +35,28 @@ unsigned int Image::getHeight() const  {
 
 const unsigned char * Image::getScanLine(unsigned int line) const  {
    /* Enter your code here */
-   return nullptr;
+   return (data + line);
 }
 unsigned char * Image::getScanLine(unsigned int line) {
-   /* Enter your code here */
-   return nullptr;
+   return (data + line);
 }
 
 Color Image::getColor( unsigned int x, unsigned int y ) const {
-   /* Enter your code here */
-   return Color();
+   struct Color retColor();
+   retColor.r = *(*(data + y) + x*3);
+   retColor.g = *(*(data + y) + x*3 + 1);
+   retColor.b = *(*(data + y) + x*3 + 2);
+   return retColor;
 }
 void Image::setColor( unsigned int x, unsigned int y, const Color &color ) {
-   /* Enter your code here */
+	unsigned char address = *(*(data + y) + 3*x);
+	*(address++) = color.r;
+	*(address++) = color.g;
+	*(address) = color.b;
 }
 
 void Image::fill( const Color &color ) {
-   /* Enter your code here */
-}
+ 	for (int row = 0; row < height; row++ )
+ 		for (int col = 0; col < width; col++ )
+ 			setColor(col, row, color);
+ }

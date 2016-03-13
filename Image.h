@@ -42,7 +42,7 @@ public:
 	void fill( const Color &color );
 
 private:
-	unsigned char ***data;
+	unsigned char **data;
 	unsigned int width, height;
 };
 
