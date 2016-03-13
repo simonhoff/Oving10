@@ -21,16 +21,21 @@ Image::Image( unsigned int width, unsigned int height ) {
 }
 
 Image::~Image()  {
-   /* Enter your code here */
+   	for (int row = 0; row < height; row++ ){
+   		for (int col = 0; col < width; col++ ){
+   			delete[] *(*(data + row) + col);
+   		}
+   		delete[] *(data + row);
+   	}
+   	delete[] data;
+   	data = nullptr;
 }
 
 unsigned int Image::getWidth() const {
-   /* Enter your code here */
-   return 0;
+   return this->width;
 }
-unsigned int Image::getHeight() const  {
-   /* Enter your code here */ 
-   return 0;
+unsigned int Image::getHeight() const  { 
+   return this->height;
 }
 
 const unsigned char * Image::getScanLine(unsigned int line) const  {
