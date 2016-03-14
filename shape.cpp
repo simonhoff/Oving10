@@ -11,7 +11,7 @@ struct Color Shape::getColor(){
 	return this->clr;
 }
 
-Line::Line(unsigned int x1, unsigned int x2, unsigned int y1, unsigned int y2, struct Color col): Shape::Shape(col){
+Line::Line(unsigned int x1, unsigned int x2, unsigned int y1, unsigned int y2, struct Color &col): Shape::Shape(col){
 	this->x1 = x1; this->x2 = x2;
 	this->y1 = y1; this->y2 = y2;
 }
@@ -19,8 +19,6 @@ Line::Line(unsigned int x1, unsigned int x2, unsigned int y1, unsigned int y2, s
 void Line::draw(Image &img){
 	if (x1 < x2){
 		double a = ((double)y2-(double)y1)/((double)x2-(double)x1);
-		std::cout << x1 << " " << x2 << " " << y1 << " " << y2 << std::endl;
-		std::cout << "a= " << a << std::endl;
 		unsigned int currentY, previousY;
 		previousY = currentY = y1;
 		for (int x = x1; x < x2; x++){
@@ -58,4 +56,37 @@ void Line::draw(Image &img){
 			img.setColor(x1, y, getColor());
 		}
 	}
+}
+
+Rectangle::Rectangle(unsigned int x, unsigned int y, unsigned int height, unsigned int width, struct Color &col):Shape::Shape(col){
+	this->x = x; this->y = y;
+	this->height = height;
+	this->width = width;
+} 
+
+void Rectangle::draw(Image &img){
+	for (int xpos = x; xpos < x +width; xpos++){
+		for (int ypos = y; ypos < y + height; ypos++){
+			img.setColor(xpos, ypos, getColor());
+		}
+	}
+}
+
+Circle::Circle(unsigned int x, unsigned int y, unsigned int radius, struct Color &col):Shape::Shape(col){
+	this->x = x; this->y = y;
+	this->radius = radius;
+}
+
+void Circle::draw(Image &img){
+	double r = radius;
+	double dTheta = 1/(4*3.14*r);
+	double theta = 0;
+	while (theta < 2 * 3.14){
+		int xPos, yPos;
+		xPos = (int) ((int) x) + r*std::cos(theta);
+		yPos = (int) ((int) y) + r*std::sin(theta);
+		img.setColor(xPos, yPos, getColor());
+		theta += dTheta;
+	}
+
 }

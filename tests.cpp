@@ -12,8 +12,10 @@ int main(){
 	struct Color clr(200, 0, 0);
 
 	Shape* l = new Line(70, 150, 450, 440, clr);
+	Shape* c = new Circle(50,50,40,clr);
+	Shape* r = new Rectangle(30,40,250,100,clr);
 	line.fill(fill);
-	l->draw(line); 
+	c->draw(line); 
 
 	solidColor.fill(col);
 

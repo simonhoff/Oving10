@@ -15,20 +15,22 @@ class Line: public Shape{
 private:
 	unsigned int x1, x2, y1, y2;
 public:
-	Line(unsigned int x1, unsigned int x2, unsigned int y1, unsigned int y2, struct Color col);
+	Line(unsigned int x1, unsigned int x2, unsigned int y1, unsigned int y2, struct Color &col);
 	virtual void draw(Image &img);
 };
 
 class Rectangle: public Shape{
 private:
-	int height, width;
+	unsigned int height, width, x, y;
 public:
-
+	Rectangle(unsigned int x, unsigned int y, unsigned int height, unsigned int width, struct Color &col); 
+	virtual void draw(Image &img);
 };
 
 class Circle: public Shape{
 private:
-	int radius;
+	unsigned int radius, x, y;
 public:
-
+	Circle(unsigned int x, unsigned int y, unsigned int radius, struct Color &col);
+	virtual void draw(Image &img);
 };
