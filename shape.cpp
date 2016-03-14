@@ -78,15 +78,33 @@ Circle::Circle(unsigned int x, unsigned int y, unsigned int radius, struct Color
 }
 
 void Circle::draw(Image &img){
-	double r = radius;
-	double dTheta = 1/(4*3.14*r);
-	double theta = 0;
-	while (theta < 2 * 3.14){
+	for (int xPos = x - radius; xPos < x + radius; xPos++){
+		int yStart = (int) y - (int) sqrt(radius*radius -(xPos - x)*(xPos - x));
+		int yFin = (int) y + (int) sqrt(radius*radius -(xPos - x)*(xPos - x));
+		for (int yPos = yStart; yPos < yFin + 1; yPos++){
+			img.setColor(xPos, yPos, getColor());
+		}
+	}
+}
+
+Curve(unsigned int x, unsigned int y, unsigned int radius, double a0, double angle, struct Color &col):	Shape::Shape(),
+																										x(x),
+																										y(y),
+																										radius(radius),
+																										a0(a0),
+																										angle(angle)
+{}
+
+virtual void draw(Image &img){
+	double theta = a0;
+	double dTheta = 1/(4*angle*radius);
+	while (theta < a0+angle){
 		int xPos, yPos;
-		xPos = (int) ((int) x) + r*std::cos(theta);
-		yPos = (int) ((int) y) + r*std::sin(theta);
+		xPos = x + radius*cos(theta);
+		yPos = y + radius*sin(theta);
+
 		img.setColor(xPos, yPos, getColor());
+
 		theta += dTheta;
 	}
-
 }

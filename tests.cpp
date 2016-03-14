@@ -21,5 +21,9 @@ int main(){
 
 	int success = saveImage(solidColor, "solid");
 	success = saveImage(line, "line");
+	delete l;
+	delete c;
+	delete r;
+	l = r = c = nullptr;
 	return 0;
 }

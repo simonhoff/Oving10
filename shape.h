@@ -34,3 +34,11 @@ public:
 	Circle(unsigned int x, unsigned int y, unsigned int radius, struct Color &col);
 	virtual void draw(Image &img);
 };
+
+class Curve: public Shape{
+private:
+	unsigned int radius, x, y;
+	double angle;
+public:
+	Curve(unsigned int x, unsigned int y, unsigned int radius, double a0, double angle, struct Color &col);
+	virtual void draw(Image &img);
