@@ -37,8 +37,9 @@ public:
 
 class Curve: public Shape{
 private:
-	unsigned int radius, x, y;
-	double angle;
+	unsigned int radius, x, y, thickness;
+	double a0, angle;
 public:
-	Curve(unsigned int x, unsigned int y, unsigned int radius, double a0, double angle, struct Color &col);
+	Curve(unsigned int x, unsigned int y, unsigned int radius, double a0, double angle, unsigned int thickness, struct Color &col);
 	virtual void draw(Image &img);
+};

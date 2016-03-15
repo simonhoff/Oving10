@@ -87,24 +87,27 @@ void Circle::draw(Image &img){
 	}
 }
 
-Curve(unsigned int x, unsigned int y, unsigned int radius, double a0, double angle, struct Color &col):	Shape::Shape(),
-																										x(x),
-																										y(y),
-																										radius(radius),
-																										a0(a0),
-																										angle(angle)
+Curve::Curve(unsigned int x, unsigned int y, unsigned int radius, double a0, double angle, unsigned int thickness, struct Color &col):	Shape::Shape(col),
+																																		x(x),
+																																		y(y),
+																																		radius(radius),
+																																		a0(a0),
+																																		angle(angle),
+																																		thickness(thickness)
 {}
 
-virtual void draw(Image &img){
-	double theta = a0;
-	double dTheta = 1/(4*angle*radius);
-	while (theta < a0+angle){
-		int xPos, yPos;
-		xPos = x + radius*cos(theta);
-		yPos = y + radius*sin(theta);
+void Curve::draw(Image &img){
+	for (int r = radius-(thickness/2); r < radius + thickness/2; r++){
+		double theta = a0;
+		double dTheta = 1/(4*angle*r);
+		while (theta < a0+angle){
+			int xPos, yPos;
+			xPos = x + r*cos(theta);
+			yPos = y + r*sin(theta);
 
-		img.setColor(xPos, yPos, getColor());
+			img.setColor(xPos, yPos, getColor());
 
-		theta += dTheta;
+			theta += dTheta;
+		}
 	}
 }

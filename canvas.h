@@ -11,4 +11,5 @@ private:
 public:
 	void addShape(Shape* s);
 	void rasterizeTo(Image &img);
+	void clear();
 };

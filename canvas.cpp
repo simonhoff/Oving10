@@ -10,6 +10,12 @@ void Canvas::addShape(Shape* s){
 
 void Canvas::rasterizeTo(Image &img){
 	for (auto itr = shapes.begin(); itr != shapes.end(); itr++){
-		itr->draw(img);
+		(*itr)->draw(img);
+	}
+}
+
+void Canvas::clear(){
+	for (auto itr = shapes.begin(); itr != shapes.end(); itr++){
+		delete *itr;
 	}
 }
